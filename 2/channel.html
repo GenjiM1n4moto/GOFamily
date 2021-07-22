@@ -757,6 +757,32 @@
             
         </li>
     
+        <li class="chapter " data-level="1.5" >
+            
+                <span>
+            
+                    
+                    Q&A
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" >
+            
+                <span>
+            
+                    
+                    GO语言编程模式
+            
+                </span>
+            
+
+            
+        </li>
+    
 
     
 
@@ -803,7 +829,7 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="&#x901A;&#x9053;-channel">&#x901A;&#x9053; channel</h1>
-<p>&#x6211;&#x4EEC;&#x4F7F;&#x7528;make&#x6765;&#x521D;&#x59CB;&#x5316;&#x8FD9;&#x4E2A;chan&#xFF0C;&#x540E;&#x9762;&#x8FD8;&#x6709;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#xFF08;&#x8FD9;&#x91CC;&#x6CA1;&#x6709;len&#x548C;cap&#x7684;&#x6982;&#x5FF5;&#xFF09;&#x8FD9;&#x4E2A;&#x53C2;&#x6570;&#x662F;&#x5BB9;&#x91CF;&#xFF0C;&#x62E5;&#x6709;&#x5BB9;&#x91CF;&#x5C31;&#x662F;&#x53EF;&#x4EE5;&#x62E5;&#x6709;buffered&#xFF0C;&#x6CA1;&#x6709;&#x5BB9;&#x91CF;&#x5C31;&#x662F;&#x5FC5;&#x987B;&#x6536;&#x4E86;&#x53D1;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x624D;&#x80FD;&#x4F20;&#x9012;&#x4E0B;&#x4E00;&#x4E2A;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x4F7F;&#x7528;make&#x6765;&#x521D;&#x59CB;&#x5316;&#x8FD9;&#x4E2A;chan&#xFF0C;&#x53C2;&#x6570;&#x662F;&#x5BB9;&#x91CF;&#xFF0C;&#x62E5;&#x6709;&#x5BB9;&#x91CF;&#x5C31;&#x662F;&#x53EF;&#x4EE5;&#x62E5;&#x6709;buffered&#xFF0C;&#x6CA1;&#x6709;&#x5BB9;&#x91CF;&#x5C31;&#x662F;&#x5FC5;&#x987B;&#x6536;&#x4E86;&#x53D1;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x624D;&#x80FD;&#x4F20;&#x9012;&#x4E0B;&#x4E00;&#x4E2A;&#x3002;</p>
 <h2 id="&#x901A;&#x9053;&#x7684;&#x57FA;&#x672C;&#x4F7F;&#x7528;">&#x901A;&#x9053;&#x7684;&#x57FA;&#x672C;&#x4F7F;&#x7528;</h2>
 <pre><code class="lang-go"><span class="hljs-comment">// &#x521D;&#x59CB;&#x5316;&#xFF1A;</span>
 ch := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> Type,Cap)
@@ -1526,53 +1552,651 @@ a := &lt;-ch <span class="hljs-comment">// &#x8BFB;&#x53D6;&#x6570;&#x636E;&#xFF
 <li>&#x6247;&#x51FA;</li>
 <li>Stream</li>
 <li>Map-Reduce<h3 id="chan&#x5B9E;&#x73B0;syncwaitgroup&#x529F;&#x80FD;">chan&#x5B9E;&#x73B0;sync.WaitGroup&#x529F;&#x80FD;</h3>
-```go
-package main</li>
+</li>
 </ul>
-<p>import &quot;fmt&quot;</p>
-<p>func main() {
-    g := NewWaitGroup(10)
-    g.Add(10)
-    for i := 0; i &lt; 10; i++ {
-        go func(i int) {
-            defer g.Done()
+<pre><code class="lang-go">
+<span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> <span class="hljs-string">&quot;fmt&quot;</span>
+
+<span class="hljs-keyword">func</span> main() {
+    g := NewWaitGroup(<span class="hljs-number">10</span>)
+    g.Add(<span class="hljs-number">10</span>)
+    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; i++ {
+        <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>(i <span class="hljs-keyword">int</span>) {
+            <span class="hljs-keyword">defer</span> g.Done()
             fmt.Println(i)
         }(i)
     }
     g.Wait()
-}</p>
-<p>//WaitGroup &#x4F7F;&#x7528;chan&#x5B9E;&#x73B0;waitgroup
-type WaitGroup struct {
-    c chan struct{}
-}</p>
-<p>func NewWaitGroup(n int) <em>WaitGroup {
-    return &amp;WaitGroup{
-        make(chan struct{}, n),
+}
+
+<span class="hljs-comment">//WaitGroup &#x4F7F;&#x7528;chan&#x5B9E;&#x73B0;waitgroup</span>
+<span class="hljs-keyword">type</span> WaitGroup <span class="hljs-keyword">struct</span> {
+    c <span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>{}
+}
+
+<span class="hljs-keyword">func</span> NewWaitGroup(n <span class="hljs-keyword">int</span>) *WaitGroup {
+    <span class="hljs-keyword">return</span> &amp;WaitGroup{
+        <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">struct</span>{}, n),
     }
 }
-func (w </em>WaitGroup) Add(n int) {
-    if n &gt; cap(w.c) {
-        panic(&quot;add&#x4E2D;&#x7684;&#x6570;&#x636E;&#x4E0D;&#x53EF;&#x4EE5;&#x5927;&#x4E8E;new&#x4E2D;&#x7684;&#x6570;&#x636E;&quot;)
+<span class="hljs-keyword">func</span> (w *WaitGroup) Add(n <span class="hljs-keyword">int</span>) {
+    <span class="hljs-keyword">if</span> n &gt; <span class="hljs-built_in">cap</span>(w.c) {
+        <span class="hljs-built_in">panic</span>(<span class="hljs-string">&quot;add&#x4E2D;&#x7684;&#x6570;&#x636E;&#x4E0D;&#x53EF;&#x4EE5;&#x5927;&#x4E8E;new&#x4E2D;&#x7684;&#x6570;&#x636E;&quot;</span>)
     }
-    for i := 0; i &lt; n; i++ {
-        w.c &lt;- struct{}{}
+    <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; i++ {
+        w.c &lt;- <span class="hljs-keyword">struct</span>{}{}
     }
 }
-func (w <em>WaitGroup) Done() {
+<span class="hljs-keyword">func</span> (w *WaitGroup) Done() {
     &lt;-w.c
 }
-func (w </em>WaitGroup) Wait() {
-    for len(w.c) &gt; 0 {
+<span class="hljs-keyword">func</span> (w *WaitGroup) Wait() {
+    <span class="hljs-keyword">for</span> <span class="hljs-built_in">len</span>(w.c) &gt; <span class="hljs-number">0</span> {
     }
-}</p>
-<p>```</p>
+}
+</code></pre>
 <h3 id="&#x6D41;&#x6C34;&#x7EBF;&#x6A21;&#x5F0F;">&#x6D41;&#x6C34;&#x7EBF;&#x6A21;&#x5F0F;</h3>
 <p>&#x4E0A;&#x6587;&#x4E2D;&#x7684;&#x6570;&#x636E;&#x4F20;&#x9012;&#xFF0C;&#x51FB;&#x9F13;&#x4F20;&#x82B1;&#x6A21;&#x5F0F;&#x5C31;&#x662F;&#x6D41;&#x6C34;&#x7EBF;&#x6A21;&#x5F0F;&#x7684;&#x4E00;&#x79CD;&#x8868;&#x73B0;&#x5F62;&#x5F0F;&#x3002;&#x6D41;&#x6C34;&#x7EBF;&#x6A21;&#x5F0F;&#xFF0C;&#x987E;&#x540D;&#x601D;&#x4E49;&#xFF0C;&#x5C31;&#x662F;&#x8DDF;&#x5DE5;&#x5382;&#x4E2D;&#x7684;&#x6D41;&#x6C34;&#x7EBF;&#x7C7B;&#x4F3C;&#xFF0C;&#x4E00;&#x4E2A;&#x5DE5;&#x4F4D;&#x641E;&#x5B9A;&#x4EE5;&#x540E;&#x518D;&#x5F80;&#x4E0B;&#x4E00;&#x4E2A;&#x5DE5;&#x4F5C;&#x8D70;&#xFF0C;&#x5C5E;&#x4E8E;&#x5355;&#x7EBF;&#x7A0B;&#x6A21;&#x5F0F;&#x3002;&#x4E0A;&#x6587;&#x4E2D;&#x7684;&#x51FB;&#x9F13;&#x4F20;&#x82B1;&#x6570;&#x636E;&#x4F20;&#x9012;&#xFF0C;&#x90A3;&#x4E2A;&#x6570;&#x636E;&#x5728;&#x4E0D;&#x540C;&#x7684;g&#x4E4B;&#x95F4;&#x6D41;&#x8F6C;&#x4E00;&#x4E2A;&#x63A5;&#x7740;&#x4E00;&#x4E2A;&#xFF0C;&#x5355;&#x7EBF;&#x7A0B;&#x5DE5;&#x4F5C;&#xFF0C;&#x662F;&#x5178;&#x578B;&#x7684;&#x6D41;&#x6C34;&#x7EBF;&#x6A21;&#x5F0F;&#x3002;</p>
 <h3 id="or-done">Or-Done</h3>
+<p>&#x8FD9;&#x662F;&#x4E0A;&#x6587;&#x4E2D;&#x4FE1;&#x53F7;&#x901A;&#x77E5;&#x7684;&#x5EF6;&#x4F38;&#xFF0C;&#x4E0A;&#x6587;&#x4E2D;&#x4FE1;&#x53F7;&#x662F;&#x5F53;&#x67D0;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x5B8C;&#x6210;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6211;&#x4EEC;&#x7ED9;&#x4E88;&#x4E86;&#x4FE1;&#x53F7;&#x901A;&#x77E5;&#x7684;&#x65B9;&#x5F0F;&#xFF0C;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x662F;&#x591A;&#x4EFB;&#x52A1;&#xFF0C;&#x5F53;&#x591A;&#x4EFB;&#x52A1;&#x4E2D;&#x7684;&#x4EFB;&#x610F;&#x4E00;&#x4E2A;&#x5B8C;&#x6210;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5C31;&#x53D1;&#x8D77;&#x901A;&#x77E5;&#x3002;</p>
+<p>&#x73B0;&#x5728;&#x6709;&#x4E00;&#x4E2A;&#x573A;&#x666F;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x53D1;&#x9001;&#x4E00;&#x4E2A;&#x4FE1;&#x606F;&#x5230;&#x5206;&#x5E03;&#x5F0F;&#x7684;&#x591A;&#x670D;&#x52A1;&#x5668;&#x8282;&#x70B9;&#xFF0C;&#x6211;&#x4EEC;&#x8981;&#x6C42;&#xFF0C;&#x53EA;&#x8981;&#x6709;&#x4E00;&#x4E2A;&#x8282;&#x70B9;&#x670D;&#x52A1;&#x5668;&#x505A;&#x51FA;&#x4E86;&#x5E94;&#x7B54;&#xFF0C;&#x6211;&#x4EEC;&#x5C31;&#x53EF;&#x4EE5;&#x8FD4;&#x56DE;&#x8FD9;&#x4E2A;&#x4FE1;&#x53F7;</p>
+<p>&#x6211;&#x4EEC;&#x5148;&#x770B;&#x4E00;&#x4E0B;&#x4F7F;&#x7528;&#x4F20;&#x7EDF;&#x7684;&#x9012;&#x5F52;&#x5206;&#x6CBB;&#x7684;&#x7B97;&#x6CD5;&#xFF1A;</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;time&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    n := time.Now()
+    &lt;- Or(
+        w(<span class="hljs-number">1</span>*time.Second),
+        w(<span class="hljs-number">2</span>*time.Second),
+        w(<span class="hljs-number">3</span>*time.Second),
+        w(<span class="hljs-number">4</span>*time.Second),
+        w(<span class="hljs-number">5</span>*time.Second),
+        w(<span class="hljs-number">6</span>*time.Second),
+        w(<span class="hljs-number">7</span>*time.Second),
+        w(<span class="hljs-number">8</span>*time.Second),
+        w(<span class="hljs-number">9</span>*time.Second),
+        w(<span class="hljs-number">10</span>*time.Second),
+        w(<span class="hljs-number">11</span>*time.Second),
+        w(<span class="hljs-number">12</span>*time.Second),
+        )
+    fmt.Println(<span class="hljs-string">&quot;&#x6D4B;&#x8BD5;&#x7ED3;&#x675F;&quot;</span>,time.Since(n))
+}
+
+<span class="hljs-comment">//Or &#x8FD9;&#x662F;Or-done&#x6A21;&#x5F0F;,&#x672C;&#x65B9;&#x6CD5;&#x91C7;&#x7528;&#x5206;&#x6CBB;&#x7684;&#x65B9;&#x6CD5;</span>
+<span class="hljs-keyword">func</span> Or(c ...<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{})<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{}{
+    <span class="hljs-comment">// &#x7279;&#x6B8A;&#x60C5;&#x51B5;&#xFF0C;&#x6709;&#x96F6;&#x4E2A;&#x6216;&#x8005;&#x4E00;&#x4E2A;&#x7684;&#x60C5;&#x51B5;</span>
+    <span class="hljs-comment">// &#x5FC5;&#x987B;&#x62E5;&#x6709;&#x7279;&#x6B8A;&#x503C;&#x7684;&#x5904;&#x7406;&#xFF0C;&#x4E0D;&#x7136;&#x65E0;&#x6CD5;&#x8DF3;&#x51FA;&#x9012;&#x5F52;</span>
+    <span class="hljs-keyword">switch</span> <span class="hljs-built_in">len</span>(c) {
+    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:
+        <span class="hljs-keyword">return</span> c[<span class="hljs-number">0</span>]
+    }
+    t := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{})
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+        <span class="hljs-keyword">defer</span> <span class="hljs-built_in">close</span>(t)
+        <span class="hljs-comment">// &#x53EA;&#x6709;&#x4E24;&#x4E2A;</span>
+        <span class="hljs-keyword">switch</span> <span class="hljs-built_in">len</span>(c) {
+        <span class="hljs-comment">// &#x5FC5;&#x987B;&#x62E5;&#x6709;&#x7279;&#x6B8A;&#x503C;&#x7684;&#x5904;&#x7406;&#xFF0C;&#x4E0D;&#x7136;&#x65E0;&#x6CD5;&#x8DF3;&#x51FA;&#x9012;&#x5F52;</span>
+        <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:
+            <span class="hljs-keyword">select</span> {
+                <span class="hljs-keyword">case</span> &lt;- c[<span class="hljs-number">0</span>]:
+                <span class="hljs-keyword">case</span>  &lt;- c[<span class="hljs-number">1</span>]:
+            }
+        <span class="hljs-keyword">default</span>:
+            mi := <span class="hljs-built_in">len</span>(c)/<span class="hljs-number">2</span>
+            <span class="hljs-keyword">select</span> {
+            <span class="hljs-comment">// &#x8FD9;&#x91CC;&#x5F00;&#x59CB;&#x5206;&#x6CBB;</span>
+                <span class="hljs-keyword">case</span> &lt;- Or(c[:mi]...):
+                <span class="hljs-keyword">case</span> &lt;- Or(c[mi:]...):
+            }
+        }
+    }()
+    <span class="hljs-comment">// &#x8FD4;&#x56DE;&#x5206;&#x6CBB;&#x7684;&#x7ED3;&#x679C;</span>
+    <span class="hljs-keyword">return</span> t
+}
+<span class="hljs-comment">//w &#x6D4B;&#x8BD5;&#x7684;&#x5DE5;&#x4F5C;&#x6587;&#x4EF6;</span>
+<span class="hljs-keyword">func</span> w(d time.Duration) <span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{} {
+    c := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{})
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+        <span class="hljs-keyword">defer</span> <span class="hljs-built_in">close</span>(c)
+        time.Sleep(d)
+    }()
+    <span class="hljs-keyword">return</span> c
+}
+</code></pre>
+<p>&#x5F53;&#x8282;&#x70B9;&#x8FC7;&#x591A;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6211;&#x4EEC;&#x5C31;&#x8981;&#x5F88;&#x6DF1;&#x7684;&#x9012;&#x5F52;&#xFF0C;&#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#x5F88;&#x5BB9;&#x6613;&#x53D1;&#x751F;&#x5185;&#x5B58;&#x6CC4;&#x6F0F;&#xFF0C;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x5728;&#x6D77;&#x91CF;&#x7684;g&#x7684;&#x65F6;&#x5019;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x53CD;&#x5C04;&#x8FD9;&#x79CD;&#x65B9;&#x5F0F;&#x6765;&#x5B9E;&#x73B0;or-done&#x8FD9;&#x79CD;&#x6A21;&#x5F0F;&#x3002;</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;reflect&quot;</span>
+    <span class="hljs-string">&quot;time&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    t1 := time.Now()
+
+    &lt;-Or(
+        w(<span class="hljs-number">1</span>*time.Second),
+        w(<span class="hljs-number">2</span>*time.Second),
+        w(<span class="hljs-number">3</span>*time.Second),
+        w(<span class="hljs-number">4</span>*time.Second),
+        w(<span class="hljs-number">5</span>*time.Second),
+        w(<span class="hljs-number">6</span>*time.Second),
+    )
+    fmt.Println(time.Since(t1))
+
+}
+
+<span class="hljs-comment">//Or &#x5B9E;&#x73B0;&#x7684;&#x529F;&#x80FD;&#xFF1A;&#x8F93;&#x5165;&#x4F17;&#x591A;chan interface{}&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x4E00;&#x4E2A;&#x6267;&#x884C;&#x5B8C;&#x6BD5;&#x5C31;&#x53EF;&#x4EE5;&#x8BA9;&#x8FD9;&#x4E2A;or&#x8FD4;&#x56DE;chan interface{}&#x503C;</span>
+<span class="hljs-comment">// &#x7531;&#x4E8E;&#x672C;&#x573A;&#x666F;goroutine&#x4F17;&#x591A;&#xFF0C;&#x6240;&#x4EE5;&#x6B64;&#x5904;&#x91C7;&#x7528;reflect&#x5305;&#xFF0C;&#x53CD;&#x5C04;&#x7684;&#x65B9;&#x5F0F;&#x6765;&#x5199;&#x3002;</span>
+<span class="hljs-keyword">func</span> Or(c ...<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{}) <span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{} {
+    <span class="hljs-keyword">switch</span> <span class="hljs-built_in">len</span>(c) {
+    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:
+        <span class="hljs-keyword">return</span> c[<span class="hljs-number">0</span>]
+    }
+    <span class="hljs-comment">// &#x4E0B;&#x9762;&#x5C31;&#x662F;&#x5927;&#x4E8E;&#x7B49;&#x4E8E;2&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4F7F;&#x7528;&#x53CD;&#x5C04;&#x505A;&#x51FA;&#x6765;&#x7684;&#x64CD;&#x4F5C;&#xFF1A;</span>
+    done := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{})
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+        <span class="hljs-keyword">defer</span> <span class="hljs-built_in">close</span>(done)
+        <span class="hljs-keyword">var</span> f []reflect.SelectCase
+        <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> c {
+            f = <span class="hljs-built_in">append</span>(f, reflect.SelectCase{
+                Dir:  reflect.SelectRecv,
+                Chan: reflect.ValueOf(v),
+            })
+        }
+        reflect.Select(f)
+    }()
+    <span class="hljs-keyword">return</span> done
+}
+
+<span class="hljs-comment">//w &#x6B64;&#x5904;&#x6A21;&#x62DF;&#x4E86;&#x5DE5;&#x4F5C;&#x72B6;&#x6001;</span>
+<span class="hljs-keyword">func</span> w(d time.Duration) <span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{} {
+    done := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{})
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+        <span class="hljs-keyword">defer</span> <span class="hljs-built_in">close</span>(done)
+        time.Sleep(d)
+    }()
+    <span class="hljs-keyword">return</span> done
+}
+</code></pre>
 <h3 id="&#x6247;&#x5165;">&#x6247;&#x5165;</h3>
+<p>&#x5728;chan&#x4E2D;&#x7684;&#x5B9A;&#x4E49;&#x5C31;&#x662F;&#x591A;&#x4E2A;&#x8F93;&#x5165;&#x7AEF;&#xFF0C;&#x4E00;&#x4E2A;&#x8F93;&#x51FA;&#x7AEF;&#x53E3;</p>
+<p>&#x4F7F;&#x7528;&#x53CD;&#x5C04;&#x7684;&#x65B9;&#x6CD5;&#x5B9E;&#x73B0;&#x6247;&#x5165;</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;reflect&quot;</span>
+    <span class="hljs-string">&quot;time&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+
+    fi := FanInReflect(
+        work(<span class="hljs-number">1</span>*time.Second),
+        work(<span class="hljs-number">2</span>*time.Second),
+        work(<span class="hljs-number">3</span>*time.Second),
+        work(<span class="hljs-number">4</span>*time.Second),
+        work(<span class="hljs-number">5</span>*time.Second),
+        work(<span class="hljs-number">6</span>*time.Second),
+        work(<span class="hljs-number">7</span>*time.Second),
+        work(<span class="hljs-number">8</span>*time.Second),
+        work(<span class="hljs-number">9</span>*time.Second),
+        work(<span class="hljs-number">10</span>*time.Second),
+        work(<span class="hljs-number">11</span>*time.Second),
+        work(<span class="hljs-number">12</span>*time.Second),
+    )
+    <span class="hljs-keyword">for</span> v := <span class="hljs-keyword">range</span> fi {
+        fmt.Println(v)
+    }
+
+}
+
+<span class="hljs-comment">//FanInReflect</span>
+<span class="hljs-keyword">func</span> FanInReflect(channels ...<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{}) <span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{} {
+    out := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{})
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+        <span class="hljs-comment">// &#x7ED3;&#x5C3E;&#x5173;&#x95ED;out</span>
+        <span class="hljs-keyword">defer</span> <span class="hljs-built_in">close</span>(out)
+        <span class="hljs-comment">// &#x6784;&#x9020;&#x4E00;&#x4E2A;&#x6536;&#x7684;&#x53CD;&#x5C04;select</span>
+        <span class="hljs-keyword">var</span> rcs []reflect.SelectCase
+        <span class="hljs-keyword">for</span> _, v := <span class="hljs-keyword">range</span> channels {
+            rcs = <span class="hljs-built_in">append</span>(rcs, reflect.SelectCase{
+                Dir:  reflect.SelectRecv,
+                Chan: reflect.ValueOf(v),
+            },
+            )
+        }
+        <span class="hljs-comment">// &#x8FD9;&#x662F;&#x5C06;&#x5DF2;&#x7ECF;&#x5173;&#x95ED;&#x7684;chan&#x7ED9;&#x7B5B;&#x51FA;&#x53BB;&#x3002;</span>
+        <span class="hljs-keyword">for</span> <span class="hljs-built_in">len</span>(rcs) &gt; <span class="hljs-number">0</span> {
+            i, r, ok := reflect.Select(rcs)
+            <span class="hljs-keyword">if</span> !ok {
+                fmt.Println(<span class="hljs-string">&quot;&#x5173;&#x95ED;&#x4E00;&#x4E2A;chan&#xFF0C;&#x5269;&#x4F59;&quot;</span>,<span class="hljs-built_in">len</span>(rcs))
+                <span class="hljs-comment">// &#x8BC1;&#x660E;&#x8FD9;&#x4E2A;chan&#x662F;&#x5173;&#x95ED;&#x7684;&#xFF0C;&#x8FD9;&#x4E2A;c&#x7684;&#x5185;&#x5BB9;&#x5C31;&#x4E0D;&#x7528;&#x53D1;&#x9001;&#x51FA;&#x53BB;&#x4E86;&#xFF0C;&#x6240;&#x4EE5;&#x662F;continue</span>
+                rcs = <span class="hljs-built_in">append</span>(rcs[:i], rcs[i+<span class="hljs-number">1</span>:]...)
+                <span class="hljs-keyword">continue</span>
+            }
+            out &lt;- r
+        }
+
+    }()
+    <span class="hljs-keyword">return</span> out
+}
+
+<span class="hljs-comment">// work &#x8FD9;&#x91CC;&#x5C31;&#x662F;&#x4F5C;&#x4E3A;&#x6D4B;&#x8BD5;&#x4F7F;&#x7528;</span>
+<span class="hljs-keyword">func</span> work(d time.Duration) <span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{} {
+    done := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{})
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+        <span class="hljs-keyword">defer</span> <span class="hljs-built_in">close</span>(done)
+        done &lt;- d.String()
+        time.Sleep(d)
+    }()
+    <span class="hljs-keyword">return</span> done
+}
+</code></pre>
+<p>&#x4F7F;&#x7528;&#x5206;&#x6CBB;&#x7684;&#x65B9;&#x6CD5;&#x5B9E;&#x73B0;&#x6247;&#x5165;</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;time&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+
+    fi := FanInRec(
+        work(<span class="hljs-number">1</span>*time.Second),
+        work(<span class="hljs-number">2</span>*time.Second),
+        work(<span class="hljs-number">3</span>*time.Second),
+        work(<span class="hljs-number">4</span>*time.Second),
+        work(<span class="hljs-number">5</span>*time.Second),
+        work(<span class="hljs-number">6</span>*time.Second),
+        work(<span class="hljs-number">7</span>*time.Second),
+        work(<span class="hljs-number">8</span>*time.Second),
+        work(<span class="hljs-number">9</span>*time.Second),
+        work(<span class="hljs-number">10</span>*time.Second),
+        work(<span class="hljs-number">11</span>*time.Second),
+        work(<span class="hljs-number">12</span>*time.Second),
+    )
+    <span class="hljs-keyword">for</span> v := <span class="hljs-keyword">range</span> fi {
+        fmt.Println(v)
+    }
+
+}
+
+<span class="hljs-comment">//FanInRec &#x4F7F;&#x7528;&#x5F52;&#x5E76;&#x7684;&#x601D;&#x60F3;&#x8FDB;&#x884C;&#x5904;&#x7406;&#xFF0C;&#x53EF;&#x4EE5;&#x7C7B;&#x6BD4;&#x7B97;&#x6CD5;&#x4E2D;&#x7684;&#x591A;&#x8DEF;&#x5F52;&#x5E76;&#x3002;</span>
+<span class="hljs-keyword">func</span> FanInRec(channels ...<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{}) <span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{} {
+    <span class="hljs-keyword">switch</span> <span class="hljs-built_in">len</span>(channels) {
+    <span class="hljs-keyword">case</span> <span class="hljs-number">0</span>:
+        c := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{})
+        <span class="hljs-built_in">close</span>(c)
+        <span class="hljs-keyword">return</span> c
+    <span class="hljs-keyword">case</span> <span class="hljs-number">1</span>:
+        <span class="hljs-keyword">return</span> channels[<span class="hljs-number">0</span>]
+    <span class="hljs-keyword">case</span> <span class="hljs-number">2</span>:
+        <span class="hljs-keyword">return</span> mergeTwoChannel(channels[<span class="hljs-number">0</span>],channels[<span class="hljs-number">1</span>])
+    <span class="hljs-keyword">default</span>:
+        m := <span class="hljs-built_in">len</span>(channels)/<span class="hljs-number">2</span>
+        <span class="hljs-keyword">return</span> mergeTwoChannel(
+            FanInRec(channels[:m]...),
+            FanInRec(channels[m:]...),
+        )
+    }
+}
+
+<span class="hljs-comment">// mergeTwoChannel</span>
+<span class="hljs-keyword">func</span> mergeTwoChannel(a, b <span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{}) <span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{} {
+    done := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{})
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+        <span class="hljs-keyword">defer</span> <span class="hljs-built_in">close</span>(done)
+        <span class="hljs-keyword">for</span> a!= <span class="hljs-literal">nil</span> || b != <span class="hljs-literal">nil</span> {
+            <span class="hljs-keyword">select</span> {
+            <span class="hljs-keyword">case</span> v,ok :=  &lt;- a:
+                <span class="hljs-keyword">if</span> !ok {
+                    a = <span class="hljs-literal">nil</span>
+                    <span class="hljs-keyword">continue</span>
+                }
+                done &lt;- v
+            <span class="hljs-keyword">case</span> v,ok :=  &lt;- b:
+                <span class="hljs-keyword">if</span> !ok {
+                    b = <span class="hljs-literal">nil</span>
+                    <span class="hljs-keyword">continue</span>
+                }
+                done &lt;- v
+            }
+        }
+    }()
+    <span class="hljs-keyword">return</span> done
+}
+
+<span class="hljs-comment">// work &#x8FD9;&#x91CC;&#x5C31;&#x662F;&#x4F5C;&#x4E3A;&#x6D4B;&#x8BD5;&#x4F7F;&#x7528;</span>
+<span class="hljs-keyword">func</span> work(d time.Duration) <span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{} {
+    done := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{})
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+        <span class="hljs-keyword">defer</span> <span class="hljs-built_in">close</span>(done)
+        done &lt;- d.String()
+        time.Sleep(d)
+    }()
+    <span class="hljs-keyword">return</span> done
+}
+</code></pre>
 <h3 id="&#x6247;&#x51FA;">&#x6247;&#x51FA;</h3>
+<p>&#x5728;chan&#x4E2D;&#x7684;&#x5B9A;&#x4E49;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x8F93;&#x5165;&#x7AEF;&#x53E3;&#xFF0C;&#x591A;&#x4E2A;&#x8F93;&#x51FA;&#x7AEF;&#x53E3;</p>
+<p>&#x6211;&#x4EEC;&#x7ECF;&#x5E38;&#x4F7F;&#x7528;&#x8FD9;&#x79CD;&#x6A21;&#x5F0F;&#x6765;&#x5B8C;&#x6210;&#x8BBE;&#x8BA1;&#x6A21;&#x5F0F;&#x4E2D;&#x7684;&#x89C2;&#x5BDF;&#x8005;&#x6A21;&#x5F0F;&#xFF0C;&#x5373;&#x4F7F;&#x7528;&#x4E00;&#x4E2A;&#x76EE;&#x6807;&#x53BB;&#x540C;&#x65F6;&#x901A;&#x77E5;&#x591A;&#x4E2A;&#x76EE;&#x6807;&#xFF0C;&#x8FD9;&#x4E00;&#x4E2A;&#x901A;&#x77E5;&#x8005;&#x5C31;&#x662F;&#x6240;&#x8C13;&#x7684;&#x89C2;&#x5BDF;&#x8005;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x8BBE;&#x60F3;&#x8FD9;&#x4E48;&#x4E00;&#x4E2A;&#x573A;&#x666F;&#xFF0C;&#x6709;&#x4E00;&#x7FA4;&#x7684;&#x8282;&#x70B9;&#xFF0C;&#x7136;&#x540E;&#x4ED6;&#x4EEC;&#x62E5;&#x6709;&#x4E00;&#x4E2A;&#x914D;&#x7F6E;&#x4E2D;&#x5FC3;&#xFF0C;&#x9700;&#x8981;&#x8BA9;&#x914D;&#x7F6E;&#x4E2D;&#x5FC3;&#x5145;&#x5F53;&#x89C2;&#x5BDF;&#x8005;&#xFF0C;&#x53EA;&#x8981;&#x53D1;&#x751F;&#x4E86;&#x6539;&#x53D8;&#xFF0C;&#x89C2;&#x5BDF;&#x8005;&#x53BB;&#x901A;&#x77E5;&#x5404;&#x4E2A;&#x8282;&#x70B9;&#xFF0C;&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x5C06;&#x4F7F;&#x7528;
+&#x4E24;&#x79CD;&#x65B9;&#x6CD5;&#x53BB;&#x5B9E;&#x73B0;&#x8FD9;&#x4E48;&#x4E00;&#x79CD;&#x6247;&#x51FA; (fanOut)&#x7684;&#x6A21;&#x5F0F;</p>
+<pre><code class="lang-go"><span class="hljs-keyword">package</span> main
+
+<span class="hljs-keyword">import</span> (
+    <span class="hljs-string">&quot;fmt&quot;</span>
+    <span class="hljs-string">&quot;sync&quot;</span>
+    <span class="hljs-string">&quot;time&quot;</span>
+)
+
+<span class="hljs-keyword">func</span> main() {
+    c1 := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{})
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+        <span class="hljs-keyword">defer</span> <span class="hljs-built_in">close</span>(c1)
+        <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">12</span>; i++ {
+            c1 &lt;- i
+        }
+    }()
+    cs := <span class="hljs-built_in">make</span>([]<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{}, <span class="hljs-number">6</span>)
+    <span class="hljs-keyword">for</span> k := <span class="hljs-keyword">range</span> cs {
+        cs[k] = <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{})
+    }
+    FanOut(c1, cs, <span class="hljs-literal">true</span>)
+    wg := <span class="hljs-built_in">new</span>(sync.WaitGroup)
+    <span class="hljs-keyword">for</span> k := <span class="hljs-keyword">range</span> cs {
+        wg.Add(<span class="hljs-number">1</span>)
+        <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>(k <span class="hljs-keyword">int</span>) {
+            <span class="hljs-keyword">defer</span> wg.Done()
+            <span class="hljs-keyword">for</span> {
+                <span class="hljs-keyword">select</span> {
+                <span class="hljs-keyword">case</span> v := &lt;- cs[k]:
+                    fmt.Println(v)
+                <span class="hljs-keyword">case</span> &lt;- time.After(time.Second&gt;&gt;<span class="hljs-number">2</span>):
+                    <span class="hljs-keyword">return</span>
+                }
+            }
+        }(k)
+    }
+    wg.Wait()
+}
+
+<span class="hljs-comment">//FanOut &#x6247;&#x51FA;&#x6A21;&#x5F0F;</span>
+<span class="hljs-comment">// victor &#x4E3A;&#x89C2;&#x5BDF;&#x8005;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x5B83;&#x4E00;&#x4E2A;&#x4EBA;&#x7684;&#x6570;&#x636E;&#x8981;&#x4F20;&#x9012;&#x7ED9;out&#x8FD9;&#x4E2A;slice&#x4E2D;&#x7684;&#x5404;&#x4E2A;&#x6587;&#x4EF6;&#xFF0C;async&#x8868;&#x793A;&#x662F;&#x5426;&#x5F02;&#x6B65;&#x4F20;&#x9012;</span>
+<span class="hljs-keyword">func</span> FanOut(victor <span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{}, out []<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{}, async <span class="hljs-keyword">bool</span>) {
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+        <span class="hljs-comment">//defer func() {</span>
+        <span class="hljs-comment">//    for _ ,v := range out {</span>
+        <span class="hljs-comment">//        close(v)</span>
+        <span class="hljs-comment">//    }</span>
+        <span class="hljs-comment">//}()</span>
+        <span class="hljs-keyword">for</span> v := <span class="hljs-keyword">range</span> victor {
+            <span class="hljs-keyword">for</span> i:= <span class="hljs-number">0</span>;i &lt; <span class="hljs-built_in">len</span>(out);i++ {
+                i:= i
+                <span class="hljs-keyword">if</span> async {
+                    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>(v <span class="hljs-keyword">interface</span>{}) {
+                        out[i] &lt;- v
+                    }(v)
+                } <span class="hljs-keyword">else</span> {
+                    out[i] &lt;- v
+                }
+            }
+        }
+    }()
+}
+</code></pre>
 <h3 id="stream">Stream</h3>
+<p>&#x6D41;&#x5F0F;&#x7BA1;&#x9053;&#x7528;&#x6CD5;&#xFF0C;&#x63D0;&#x4F9B;&#x8DF3;&#x8FC7;&#x51E0;&#x4E2A;&#x5143;&#x7D20;&#xFF0C;&#x6216;&#x8005;&#x53EA;&#x53D6;&#x67D0;&#x51E0;&#x4E2A;&#x5143;&#x7D20;&#x8FD9;&#x79CD;&#x529F;&#x80FD;,&#x5C06;&#x6570;&#x636E;&#x4ECE;&#x6570;&#x7EC4;&#x8F6C;&#x5316;&#x4E3A;&#x6D41;, &#x6CE8;&#x610F;&#x8FD9;&#x4E2A;&#x4ECE;&#x5207;&#x7247;&#x6539;&#x4E3A;&#x6D41;&#x8DDF;&#x4E0A;&#x6587;&#x4E2D;&#x7684;&#x6247;&#x5165;&#x9887;&#x4E3A;&#x76F8;&#x4F3C;&#xFF0C;
+&#x53EA;&#x4E0D;&#x8FC7;&#x8FD9;&#x91CC;&#x662F;&#x5207;&#x7247;&#x4E2D;&#x7684;&#x6570;&#x636E;&#x6539;&#x4E3A;&#x6D41;&#xFF0C;&#x4E0A;&#x6587;&#x4E2D;&#x662F;&#x5207;&#x7247;&#x4E2D;&#x7684;&#x5404;&#x4E2A;chan&#x6539;&#x4E3A;&#x4E00;&#x4E2A;chan,&#x8FD9;&#x662F;&#x672C;&#x8D28;&#x7684;&#x533A;&#x522B;&#x3002;</p>
+<pre><code class="lang-go"><span class="hljs-comment">//TobeStream &#x5C06;&#x6570;&#x636E;&#x4ECE;&#x6570;&#x7EC4;&#x8F6C;&#x5316;&#x4E3A;&#x6D41;&#xFF0C;&#x6CE8;&#x610F;&#x8FD9;&#x4E2A;&#x4ECE;&#x5207;&#x7247;&#x6539;&#x4E3A;&#x6D41;&#x8DDF;&#x4E0A;&#x6587;&#x4E2D;&#x7684;&#x6247;&#x5165;&#x9887;&#x4E3A;&#x76F8;&#x4F3C;&#xFF0C;</span>
+<span class="hljs-comment">//&#x53EA;&#x4E0D;&#x8FC7;&#x8FD9;&#x91CC;&#x662F;&#x5207;&#x7247;&#x4E2D;&#x7684;&#x6570;&#x636E;&#x6539;&#x4E3A;&#x6D41;&#xFF0C;&#x4E0A;&#x6587;&#x4E2D;&#x662F;&#x5207;&#x7247;&#x4E2D;&#x7684;&#x5404;&#x4E2A;chan&#x6539;&#x4E3A;&#x4E00;&#x4E2A;chan</span>
+<span class="hljs-comment">// &#x8FD9;&#x662F;&#x672C;&#x8D28;&#x7684;&#x533A;&#x522B;&#x3002;</span>
+<span class="hljs-keyword">func</span> TobeStream(ctx context.Context, values ...<span class="hljs-keyword">interface</span>{}) <span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{} {
+    done := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{})
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+        <span class="hljs-keyword">defer</span> <span class="hljs-built_in">close</span>(done)
+        <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; <span class="hljs-built_in">len</span>(values); i++ {
+            <span class="hljs-keyword">select</span> {
+            <span class="hljs-keyword">case</span> done &lt;- values[i]:
+            <span class="hljs-keyword">case</span> &lt;-ctx.Done():
+            }
+        }
+    }()
+    <span class="hljs-keyword">return</span> done
+}
+</code></pre>
+<p>&#x4E0B;&#x9762;&#x6709;&#x51E0;&#x79CD;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x7684;&#x65B9;&#x6CD5;&#xFF1A;</p>
+<ul>
+<li><p>takeN &#x53EA;&#x53D6;&#x524D;n&#x4E2A;</p>
+<pre><code class="lang-go">
+  <span class="hljs-comment">//TakeN &#x53EA;&#x53D6;&#x524D;n&#x4E2A;</span>
+  <span class="hljs-keyword">func</span> TakeN(ctx context.Context, stream <span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{}, n <span class="hljs-keyword">int</span>) <span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{} {
+
+          <span class="hljs-keyword">if</span> n &gt; <span class="hljs-built_in">len</span>(stream) {
+
+          <span class="hljs-built_in">panic</span>(<span class="hljs-string">&quot;n &#x4E0D;&#x5E94;&#x8BE5;&#x5927;&#x4E8E;len(stream)&quot;</span>)
+
+          }
+
+      done := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{})
+      <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+          <span class="hljs-keyword">defer</span> <span class="hljs-built_in">close</span>(done)
+          <span class="hljs-keyword">for</span> i := <span class="hljs-number">0</span>; i &lt; n; i++ {
+              <span class="hljs-keyword">select</span> {
+              <span class="hljs-keyword">case</span> done &lt;- &lt;-stream:
+              <span class="hljs-keyword">case</span> &lt;-ctx.Done():
+                  <span class="hljs-keyword">return</span>
+              }
+          }
+      }()
+      <span class="hljs-keyword">return</span> done
+  }
+</code></pre>
+</li>
+<li><p>takeFn &#x7B5B;&#x9009;&#x53EA;&#x6EE1;&#x8DB3;fn&#x7684;&#x6570;&#x636E;</p>
+<pre><code class="lang-go">  <span class="hljs-comment">//TakeFn &#x7B5B;&#x9009;&#x53EA;&#x6EE1;&#x8DB3;fn&#x7684;&#x6570;&#x636E;</span>
+  <span class="hljs-keyword">func</span> TakeFn(ctx context.Context, stream <span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{}, fn <span class="hljs-keyword">func</span>() <span class="hljs-keyword">bool</span>) <span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{} {
+      done := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{})
+      <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+          <span class="hljs-keyword">defer</span> <span class="hljs-built_in">close</span>(done)
+          <span class="hljs-keyword">for</span> <span class="hljs-built_in">len</span>(stream) &gt; <span class="hljs-number">0</span> {
+              <span class="hljs-keyword">if</span> fn() {
+                  <span class="hljs-keyword">select</span> {
+                  <span class="hljs-keyword">case</span> done &lt;- &lt;-stream:
+                  <span class="hljs-keyword">case</span> &lt;-ctx.Done():
+                      <span class="hljs-keyword">return</span>
+                  }
+              }<span class="hljs-keyword">else</span> {
+                  &lt;- stream
+              }
+
+          }
+      }()
+      <span class="hljs-keyword">return</span> done
+  }
+</code></pre>
+</li>
+<li><p>takeFnWhile &#x4ECE;&#x6EE1;&#x8DB3;&#x6761;&#x4EF6;&#x5F00;&#x59CB;&#x53D6;&#xFF0C;&#x4E00;&#x65E6;&#x9047;&#x5230;&#x4E0D;&#x6EE1;&#x8DB3;&#x7684;&#x76F4;&#x63A5;&#x8D70;&#x4EBA;</p>
+<pre><code class="lang-go">  <span class="hljs-comment">//TakeFnWhile &#x4ECE;&#x6EE1;&#x8DB3;&#x6761;&#x4EF6;&#x5F00;&#x59CB;&#x53D6;&#xFF0C;&#x4E00;&#x65E6;&#x9047;&#x5230;&#x4E0D;&#x6EE1;&#x8DB3;&#x7684;&#x76F4;&#x63A5;&#x8D70;&#x4EBA;</span>
+  <span class="hljs-keyword">func</span> TakeFnWhile(ctx context.Context, stream <span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{}, fn <span class="hljs-keyword">func</span>() <span class="hljs-keyword">bool</span>) <span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{} {
+      done := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{})
+      <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+          <span class="hljs-keyword">defer</span> <span class="hljs-built_in">close</span>(done)
+          key := <span class="hljs-number">0</span>
+          <span class="hljs-keyword">for</span> <span class="hljs-built_in">len</span>(stream) &gt; <span class="hljs-number">0</span> {
+              <span class="hljs-keyword">if</span> fn() {
+                  key = <span class="hljs-number">1</span>
+                  <span class="hljs-keyword">select</span> {
+                  <span class="hljs-keyword">case</span> done &lt;- &lt;-stream:
+                  <span class="hljs-keyword">case</span> &lt;-ctx.Done():
+                      <span class="hljs-keyword">return</span>
+                  }
+              } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> !fn() &amp;&amp; key == <span class="hljs-number">1</span> {
+                  <span class="hljs-keyword">break</span>
+              }<span class="hljs-keyword">else</span> {
+                  &lt;- stream
+              }
+          }
+      }()
+      <span class="hljs-keyword">return</span> done
+  }
+</code></pre>
+</li>
+<li><p>skipN &#x8DF3;&#x8FC7;&#x524D;n&#x4E2A;</p>
+<pre><code class="lang-go">  <span class="hljs-comment">//SkipN &#x8DF3;&#x8FC7;&#x524D;n&#x4E2A;</span>
+  <span class="hljs-keyword">func</span> SkipN(ctx context.Context, stream <span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{}, n <span class="hljs-keyword">int</span>) <span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{} {
+      done := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{})
+      <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+          <span class="hljs-keyword">defer</span> <span class="hljs-built_in">close</span>(done)
+          i := <span class="hljs-number">0</span>
+          <span class="hljs-keyword">for</span> <span class="hljs-built_in">len</span>(stream) &gt; <span class="hljs-number">0</span> {
+              i++
+              <span class="hljs-keyword">if</span> i &gt; n {
+                  <span class="hljs-keyword">select</span> {
+                  <span class="hljs-keyword">case</span> done &lt;- &lt;-stream:
+                  <span class="hljs-keyword">case</span> &lt;-ctx.Done():
+                      <span class="hljs-keyword">return</span>
+                  }
+              }<span class="hljs-keyword">else</span> {
+                  &lt;- stream
+              }
+          }
+      }()
+      <span class="hljs-keyword">return</span> done
+  }
+</code></pre>
+</li>
+<li><p>skipFn &#x8DF3;&#x8FC7;&#x6EE1;&#x8DB3;&#x6761;&#x4EF6;&#x7684;</p>
+<pre><code class="lang-go">  <span class="hljs-comment">//SkipFn &#x8DF3;&#x8FC7;&#x6EE1;&#x8DB3;&#x6761;&#x4EF6;&#x7684;</span>
+  <span class="hljs-keyword">func</span> SkipFn(ctx context.Context, stream <span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{}, fn <span class="hljs-keyword">func</span>() <span class="hljs-keyword">bool</span>) <span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{} {
+      done := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{})
+      <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+          <span class="hljs-keyword">defer</span> <span class="hljs-built_in">close</span>(done)
+          <span class="hljs-keyword">for</span> <span class="hljs-built_in">len</span>(stream) &gt; <span class="hljs-number">0</span> {
+              <span class="hljs-keyword">if</span> !fn() {
+                  <span class="hljs-keyword">select</span> {
+                  <span class="hljs-keyword">case</span> done &lt;- &lt;-stream:
+                  <span class="hljs-keyword">case</span> &lt;-ctx.Done():
+                      <span class="hljs-keyword">return</span>
+                  }
+              }<span class="hljs-keyword">else</span> {
+                  &lt;- stream
+              }
+          }
+      }()
+      <span class="hljs-keyword">return</span> done
+  }
+</code></pre>
+</li>
+<li><p>skipFnWhile &#x8DF3;&#x8FC7;&#x6EE1;&#x8DB3;&#x6761;&#x4EF6;&#x7684;&#xFF0C;&#x76F4;&#x5230;&#x4E0D;&#x6EE1;&#x8DB3;&#xFF0C;&#x7136;&#x540E;&#x5C31;&#x4E0D;&#x8DF3;&#x8D70;&#x4E86;&#x3002;</p>
+<pre><code class="lang-go">  <span class="hljs-comment">//SkipFnWhile &#x8DF3;&#x8FC7;&#x6EE1;&#x8DB3;&#x6761;&#x4EF6;&#x7684;&#xFF0C;&#x76F4;&#x5230;&#x4E0D;&#x6EE1;&#x8DB3;&#xFF0C;&#x7136;&#x540E;&#x5C31;&#x4E0D;&#x8DF3;&#x8D70;&#x4E86;</span>
+  <span class="hljs-keyword">func</span> SkipFnWhile(ctx context.Context, stream <span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{}, fn <span class="hljs-keyword">func</span>() <span class="hljs-keyword">bool</span>) <span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{} {
+      done := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{})
+      <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+          <span class="hljs-keyword">defer</span> <span class="hljs-built_in">close</span>(done)
+          key := <span class="hljs-number">0</span>
+          <span class="hljs-keyword">for</span> <span class="hljs-built_in">len</span>(stream) &gt; <span class="hljs-number">0</span> {
+              <span class="hljs-keyword">if</span> !fn() || fn() &amp;&amp; key == <span class="hljs-number">1</span> {
+                  key = <span class="hljs-number">1</span>
+                  <span class="hljs-keyword">select</span> {
+                  <span class="hljs-keyword">case</span> done &lt;- &lt;-stream:
+                  <span class="hljs-keyword">case</span> &lt;-ctx.Done():
+                      <span class="hljs-keyword">return</span>
+                  }
+              } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> fn() &amp;&amp; key == <span class="hljs-number">0</span>{
+                  <span class="hljs-keyword">continue</span>
+              }
+          }
+      }()
+      <span class="hljs-keyword">return</span> done
+  }
+</code></pre>
+</li>
+</ul>
 <h3 id="map-reduce">Map-Reduce</h3>
+<p>map-reduce&#x53EF;&#x4EE5;&#x7B80;&#x5355;&#x7684;&#x770B;&#x4F5C;&#x4E24;&#x4E2A;&#x6B65;&#x9AA4;&#xFF0C;&#x7B2C;&#x4E00;&#xFF0C;&#x5C06;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x6620;&#x5C04;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x5206;&#x7C7B;&#xFF0C;&#x7B2C;&#x4E8C;&#x5C06;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x5904;&#x7406;&#x3002;&#x8FD9;&#x4E2A;&#x610F;&#x601D;&#x5C31;&#x662F;&#x5C06;&#x90A3;&#x4E9B;&#x5206;&#x7C7B;&#x597D;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x6309;&#x7167;&#x67D0;&#x4E2A;&#x6B21;&#x5E8F;&#xFF0C;&#x8FDB;&#x884C;&#x6392;&#x5217;&#x540E;&#x653E;&#x5165;&#x4E00;&#x4E2A;&#x7EDF;&#x4E00;&#x7684;&#x7ED3;&#x679C;&#x4E2D;&#x3002;</p>
+<p>map:</p>
+<pre><code class="lang-go"><span class="hljs-comment">//MapChan &#x5C06;&#x6D41;&#x4E2D;&#x7684;&#x6570;&#x636E;&#x6620;&#x5C04;&#x5230;&#x4E0D;&#x540C;&#x7684;&#x5904;&#x7406;&#x5355;&#x5143;</span>
+<span class="hljs-keyword">func</span> MapChan(in <span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{},fn <span class="hljs-keyword">func</span>(v <span class="hljs-keyword">interface</span>{})<span class="hljs-keyword">interface</span>{})<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{}{
+    done := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{})
+    <span class="hljs-comment">// &#x5982;&#x679C;in&#x662F;nil&#x7684;&#x5316;&#xFF0C;&#x76F4;&#x63A5;&#x5411;&#x5916;&#x4F20;&#x9012;&#x4E00;&#x4E2A;&#x5DF2;&#x7ECF;close&#x6389;&#x7684;&#x4FE1;&#x53F7;&#x5373;&#x53EF;&#x3002;</span>
+    <span class="hljs-keyword">if</span> in == <span class="hljs-literal">nil</span> {
+        <span class="hljs-built_in">close</span>(done)
+        <span class="hljs-keyword">return</span> done
+    }
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+        <span class="hljs-keyword">defer</span> <span class="hljs-built_in">close</span>(done)
+        <span class="hljs-keyword">for</span> v := <span class="hljs-keyword">range</span> in {
+            <span class="hljs-comment">// &#x8FD9;&#x91CC;&#x5C31;&#x662F;fn&#x662F;map&#x51FD;&#x6570;&#xFF0C;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#x5C06;v&#x4F20;&#x5165;&#xFF0C;&#x770B;&#x770B;&#x8FD4;&#x56DE;&#x503C;&#x3002;</span>
+            done &lt;- fn(v)
+        }
+    }()
+<span class="hljs-keyword">return</span> done
+}
+</code></pre>
+<p>reduce:</p>
+<pre><code class="lang-go"><span class="hljs-comment">//ReduceData</span>
+<span class="hljs-keyword">func</span> ReduceData(in <span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{}, fn <span class="hljs-keyword">func</span>(v1, v2 <span class="hljs-keyword">interface</span>{}) <span class="hljs-keyword">interface</span>{}) <span class="hljs-keyword">interface</span>{} {
+    <span class="hljs-keyword">if</span> in == <span class="hljs-literal">nil</span> {
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
+    }
+    v := &lt;-in
+    <span class="hljs-keyword">for</span> vi := <span class="hljs-keyword">range</span> in {
+        v = fn(v, vi)
+    }
+    <span class="hljs-keyword">return</span> v
+}
+</code></pre>
+<p>&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x6765;&#x6F14;&#x793A;&#x4E00;&#x4E0B;&#x573A;&#x666F;&#xFF1A;</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main() {
+mapfn1 := <span class="hljs-keyword">func</span>(v <span class="hljs-keyword">interface</span>{}) <span class="hljs-keyword">interface</span>{}{
+        <span class="hljs-keyword">if</span> v.(<span class="hljs-keyword">int</span>) %<span class="hljs-number">2</span> == <span class="hljs-number">0</span>{
+            <span class="hljs-keyword">return</span> v
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">nil</span>
+    }
+    reduceFn := <span class="hljs-keyword">func</span>(v1, v2 <span class="hljs-keyword">interface</span>{}) <span class="hljs-keyword">interface</span>{}{
+        <span class="hljs-keyword">return</span> v1.(<span class="hljs-keyword">int</span>) *<span class="hljs-number">2</span> + v2.(<span class="hljs-keyword">int</span>) *<span class="hljs-number">3</span>
+    }
+
+    data := []<span class="hljs-keyword">interface</span>{} {<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">7</span>,<span class="hljs-number">8</span>,<span class="hljs-number">9</span>,<span class="hljs-number">10</span>,<span class="hljs-number">11</span>,<span class="hljs-number">12</span>,<span class="hljs-number">13</span>,<span class="hljs-number">14</span>,<span class="hljs-number">15</span>,<span class="hljs-number">16</span>,<span class="hljs-number">17</span>,<span class="hljs-number">18</span>,<span class="hljs-number">19</span>,<span class="hljs-number">20</span>}
+    ctx,cal := context.WithCancel(context.Background())
+    <span class="hljs-keyword">defer</span> cal()
+    in := streamData(ctx,data...)
+    m1 := MapChan(in,mapfn1)
+    fmt.Println(ReduceData(m1,reduceFn))
+
+}
+<span class="hljs-comment">// &#x5C06;&#x6570;&#x7EC4;&#x5408;&#x5E76;&#x4E3A;&#x6D41;</span>
+<span class="hljs-keyword">func</span> streamData(ctx context.Context,data ...<span class="hljs-keyword">interface</span>{})<span class="hljs-keyword">chan</span>  <span class="hljs-keyword">interface</span>{}{
+    done := <span class="hljs-built_in">make</span>(<span class="hljs-keyword">chan</span> <span class="hljs-keyword">interface</span>{})
+    <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>() {
+        <span class="hljs-keyword">defer</span> <span class="hljs-built_in">close</span>(done)
+        <span class="hljs-keyword">for</span> _,v := <span class="hljs-keyword">range</span> data{
+            <span class="hljs-keyword">select</span> {
+            <span class="hljs-keyword">case</span> &lt;- ctx.Done():
+            <span class="hljs-keyword">case</span> done &lt;- v :
+            }
+        }
+    }()
+    <span class="hljs-keyword">return</span> done
+}
+</code></pre>
 
                                 
                                 </section>
@@ -1616,7 +2240,7 @@ func (w </em>WaitGroup) Wait() {
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"channel","level":"1.3.3","depth":2,"next":{"title":"定时器","level":"1.3.4","depth":2,"path":"2/timer.md","ref":"./2/timer.md","articles":[]},"previous":{"title":"context","level":"1.3.2","depth":2,"path":"2/context.md","ref":"./2/context.md","articles":[]},"dir":"ltr"},"config":{"plugins":["livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"ignoreSpecialCharacters":false,"maxIndexSize":1000000},"sharing":{"weibo":false,"all":["facebook","google","twitter","weibo","instapaper"],"google":false,"twitter":true,"vk":false,"instapaper":false,"facebook":true},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"科科人神 <shgopher@foxmail.com>","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":2,"left":2,"top":36,"bottom":36},"fontSize":16,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"GOFamily","gitbook":"*","sidebar":{"GOFamily":"https://github.com/shgopher/GOFamily"},"description":"GOFamily is a go-learning book."},"file":{"path":"2/channel.md","mtime":"2021-06-24T19:01:27.331Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-25T06:27:35.518Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"channel","level":"1.3.3","depth":2,"next":{"title":"定时器","level":"1.3.4","depth":2,"path":"2/timer.md","ref":"./2/timer.md","articles":[]},"previous":{"title":"context","level":"1.3.2","depth":2,"path":"2/context.md","ref":"./2/context.md","articles":[]},"dir":"ltr"},"config":{"plugins":["livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"ignoreSpecialCharacters":false,"maxIndexSize":1000000},"sharing":{"weibo":false,"all":["facebook","google","twitter","weibo","instapaper"],"google":false,"twitter":true,"vk":false,"instapaper":false,"facebook":true},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"科科人神 <shgopher@foxmail.com>","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":2,"left":2,"top":36,"bottom":36},"fontSize":16,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"GOFamily","gitbook":"*","sidebar":{"GOFamily":"https://github.com/shgopher/GOFamily"},"description":"GOFamily is a go-learning book."},"file":{"path":"2/channel.md","mtime":"2021-06-27T20:07:58.680Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-22T14:36:37.831Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

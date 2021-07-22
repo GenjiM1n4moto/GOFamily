@@ -757,6 +757,32 @@
             
         </li>
     
+        <li class="chapter " data-level="1.5" >
+            
+                <span>
+            
+                    
+                    Q&A
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" >
+            
+                <span>
+            
+                    
+                    GO语言编程模式
+            
+                </span>
+            
+
+            
+        </li>
+    
 
     
 
@@ -802,7 +828,18 @@
     
                                 <section class="normal markdown-section">
                                 
-                                
+                                <h1 id="bufio">bufio</h1>
+<p>bufio == buffer  io &#x610F;&#x601D;&#x5C31;&#x662F;&#x5C01;&#x88C5;&#x4E86;io&#xFF0C;&#x662F;&#x62E5;&#x6709;&#x7F13;&#x5B58;&#x7684;io&#x64CD;&#x4F5C;</p>
+<p>bufio&#x8DDF;io&#x4E00;&#x6837;&#xFF0C;&#x4E3B;&#x8981;&#x662F;&#x5B9E;&#x73B0;&#x4E86;&#x4E09;&#x79CD;&#x65B9;&#x6CD5;</p>
+<ul>
+<li>read&#xFF1A;&#x8BFB;</li>
+<li>write&#xFF1A;&#x5199;</li>
+<li>scan&#xFF1A;&#x626B;&#x63CF;</li>
+</ul>
+<p><code>func NewReader(rd io.Reader) *Reader</code> &#x5B9E;&#x73B0;&#x4E86;&#x4E00;&#x4E2A;&#x5E26;&#x6709;&#x7F13;&#x5B58;&#x7684;io.reader&#x63A5;&#x53E3;&#xFF0C;&#x8FD9;&#x91CC;&#x8FD4;&#x56DE;&#x7684;&#x662F;bufio.Reader ,&#x8FD9;&#x4E2A;struct&#x5B9E;&#x73B0;&#x4E86;io.Reader&#x63A5;&#x53E3;&#x3002;</p>
+<p><code>func NewWriter(w io.Writer) *Writer</code>&#x5B9E;&#x73B0;&#x4E86;&#x4E00;&#x4E2A;&#x5E26;&#x6709;&#x7F13;&#x5B58;&#x7684;io.Writer&#x63A5;&#x53E3;&#xFF0C;&#x5176;&#x4E2D;bufio.Writer&#x662F;&#x4E00;&#x4E2A;&#x5B9E;&#x73B0;&#x4E86;io.Writer&#x7684;struct</p>
+<p><code>func NewScanner(r io.Reader) *Scanner</code>&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E9B;&#x626B;&#x63CF;&#x76F8;&#x5173;&#x7684;method</p>
+
                                 
                                 </section>
                             
@@ -845,7 +882,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"bufio","level":"1.4.6","depth":2,"next":{"title":"container","level":"1.4.7","depth":2,"path":"3/container.md","ref":"./3/container.md","articles":[]},"previous":{"title":"io","level":"1.4.5","depth":2,"path":"3/io.md","ref":"./3/io.md","articles":[]},"dir":"neutral"},"config":{"plugins":["livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"ignoreSpecialCharacters":false,"maxIndexSize":1000000},"sharing":{"weibo":false,"all":["facebook","google","twitter","weibo","instapaper"],"google":false,"twitter":true,"vk":false,"instapaper":false,"facebook":true},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"科科人神 <shgopher@foxmail.com>","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":2,"left":2,"top":36,"bottom":36},"fontSize":16,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"GOFamily","gitbook":"*","sidebar":{"GOFamily":"https://github.com/shgopher/GOFamily"},"description":"GOFamily is a go-learning book."},"file":{"path":"3/bufio.md","mtime":"2021-06-12T03:41:15.181Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-25T06:27:35.518Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"bufio","level":"1.4.6","depth":2,"next":{"title":"container","level":"1.4.7","depth":2,"path":"3/container.md","ref":"./3/container.md","articles":[]},"previous":{"title":"io","level":"1.4.5","depth":2,"path":"3/io.md","ref":"./3/io.md","articles":[]},"dir":"ltr"},"config":{"plugins":["livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"ignoreSpecialCharacters":false,"maxIndexSize":1000000},"sharing":{"weibo":false,"all":["facebook","google","twitter","weibo","instapaper"],"google":false,"twitter":true,"vk":false,"instapaper":false,"facebook":true},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"科科人神 <shgopher@foxmail.com>","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":2,"left":2,"top":36,"bottom":36},"fontSize":16,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"GOFamily","gitbook":"*","sidebar":{"GOFamily":"https://github.com/shgopher/GOFamily"},"description":"GOFamily is a go-learning book."},"file":{"path":"3/bufio.md","mtime":"2021-07-16T21:15:14.868Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-22T14:36:37.831Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

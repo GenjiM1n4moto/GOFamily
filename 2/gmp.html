@@ -757,6 +757,32 @@
             
         </li>
     
+        <li class="chapter " data-level="1.5" >
+            
+                <span>
+            
+                    
+                    Q&A
+            
+                </span>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" >
+            
+                <span>
+            
+                    
+                    GO语言编程模式
+            
+                </span>
+            
+
+            
+        </li>
+    
 
     
 
@@ -803,9 +829,136 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="go&#x8BED;&#x8A00;&#x8FD0;&#x884C;&#x65F6;&#x7684;&#x8C03;&#x5EA6;&#x5668;">go&#x8BED;&#x8A00;&#x8FD0;&#x884C;&#x65F6;&#x7684;&#x8C03;&#x5EA6;&#x5668;</h1>
-<h2 id="pmggo&#x8FD0;&#x884C;&#x65F6;&#x8C03;&#x5EA6;&#x6A21;&#x578B;">P:M:Ggo&#x8FD0;&#x884C;&#x65F6;&#x8C03;&#x5EA6;&#x6A21;&#x578B;</h2>
-<h2 id="go&#x8BED;&#x8A00;runtime&#x8C03;&#x5EA6;&#x5668;">go&#x8BED;&#x8A00;runtime&#x8C03;&#x5EA6;&#x5668;</h2>
+<p>&#x8FDB;&#x7A0B;&#x662F;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x8D44;&#x6E90;&#x5171;&#x4EAB;&#x7684;&#x57FA;&#x672C;&#x5355;&#x4F4D;&#xFF0C;&#x7EBF;&#x7A0B;&#x662F;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x8C03;&#x5EA6;&#x7684;&#x6700;&#x57FA;&#x672C;&#x5355;&#x4F4D;&#xFF0C;go&#x51B3;&#x5B9A;&#x4F7F;&#x7528;&#x534F;&#x7A0B;&#x4F5C;&#x4E3A;&#x57FA;&#x672C;&#x7684;&#x6267;&#x884C;&#x5355;&#x5143;&#xFF0C;&#x5E38;&#x89C1;&#x7684;&#x6709;&#x591A;&#x8FDB;&#x7A0B;&#xFF0C;&#x591A;&#x7EBF;&#x7A0B;&#xFF0C;&#x591A;&#x8FDB;&#x7A0B;&#x7684;&#x4E0A;&#x4E0B;&#x6587;&#x5207;&#x6362;&#x8017;&#x65F6;&#x592A;&#x957F;&#xFF0C;&#x591A;&#x7EBF;&#x7A0B;&#x867D;&#x7136;&#x6709;&#x6240;&#x6539;&#x5584;&#xFF0C;&#x4F46;&#x662F;&#x4ECD;&#x7136;&#x6BD4;&#x8F83;&#x957F;&#xFF0C;go&#x9009;&#x534F;&#x7A0B;&#x53EF;&#x4EE5;&#x5927;&#x5E45;&#x5EA6;&#x964D;&#x4F4E;&#x8D44;&#x6E90;&#x5728;&#x5404;&#x4E2A;&#x6267;&#x884C;&#x5355;&#x5143;&#x4E2D;&#x5207;&#x6362;&#x7684;&#x65F6;&#x95F4;</p>
+<p>go&#x8BED;&#x8A00;&#x7684;&#x8C03;&#x5EA6;&#x6A21;&#x578B;&#x5728;&#x5404;&#x4E2A;&#x65F6;&#x671F;&#x662F;&#x6709;&#x4E0D;&#x540C;&#x7684;&#x6A21;&#x578B;&#x7684;&#xFF0C;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x5148;&#x4E86;&#x89E3;&#x4E00;&#x4E0B;&#x5B83;&#x7684;&#x6F14;&#x53D8;&#x8FC7;&#x7A0B;&#x3002;</p>
+<ul>
+<li><p>&#x5355;&#x7EBF;&#x7A0B;&#x8C03;&#x5EA6;</p>
+<p>  &#x5728;&#x8FD9;&#x4E2A;&#x7248;&#x672C;&#x91CC;&#xFF0C;runtime&#x4EE3;&#x7801;&#x8FD8;&#x662F;&#x7528;c&#x5199;&#x7684;&#xFF0C;&#x8FD9;&#x4E2A;&#x5355;&#x7EBF;&#x7A0B;&#x8C03;&#x5EA6;&#x5C31;&#x662F;&#x540C;&#x65F6;&#x4EC5;&#x4EC5;&#x652F;&#x6301;&#x4E00;&#x4E2A;g&#x6765;&#x6267;&#x884C;&#xFF0C;&#x6BCF;&#x6B21;&#x5148;&#x4E0A;&#x9501;&#xFF0C;g&#x6267;&#x884C;&#xFF0C;&#x6267;&#x884C;&#x5B8C;&#x91CA;&#x653E;&#x9501;&#x518D;&#x53BB;&#x6267;&#x884C;&#x4E0B;&#x4E00;&#x4E2A;g</p>
+</li>
+<li><p>&#x591A;&#x7EBF;&#x7A0B;&#x8C03;&#x5EA6;</p>
+<p>  &#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#x7A0B;&#x5E8F;&#x5185;&#x5C31;&#x5B58;&#x5728;&#x591A;&#x4E2A;&#x540C;&#x65F6;&#x8FD0;&#x884C;&#x7684;&#x7EBF;&#x7A0B;&#xFF0C;&#x6240;&#x4EE5;&#x5F15;&#x5165;&#x4E86;&#x591A;&#x7EBF;&#x7A0B;&#x8C03;&#x5EA6;&#x5668;&#xFF0C;&#x5E76;&#x4E14;&#x5F15;&#x5165;&#x4E86; GOMAXPROCS &#x8FD9;&#x4E2A;&#x53EF;&#x4EE5;&#x63A7;&#x5236;&#x6700;&#x5927;&#x5E76;&#x53D1;&#x7684;&#x8BBE;&#x7F6E;&#x3002;&#x8FD9;&#x4E2A;&#x9636;&#x6BB5;&#x5BB9;&#x6613;&#x4EA7;&#x751F;&#x5168;&#x5C40;&#x9501;&#x9897;&#x7C92;&#x5EA6;&#x5927;&#xFF0C;&#x53EF;&#x6267;&#x884C;&#x7EBF;&#x7A0B;&#x4E4B;&#x95F4;&#x7ECF;&#x5E38;&#x4EA4;&#x6362;g&#x9020;&#x6210;&#x65F6;&#x95F4;&#x4E0A;&#x7684;&#x6D6A;&#x8D39;&#x7B49;&#x95EE;&#x9898;</p>
+</li>
+<li><p>&#x4EFB;&#x52A1;&#x7A83;&#x53D6;&#x8C03;&#x5EA6;</p>
+<p>  &#x6B63;&#x5F0F;&#x5F15;&#x5165;G:M:P &#x6A21;&#x578B;&#xFF0C;&#x5DE5;&#x4F5C;&#x7A83;&#x53D6;&#x7684;&#x610F;&#x601D;&#x5C31;&#x662F;&#x76EE;&#x524D;&#x8FD9;&#x4E2A;p&#x4E0B;&#x9762;&#x6CA1;&#x6709;&#x6B63;&#x5728;&#x8FD0;&#x884C;&#x7684;g&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x4ECE;&#x5176;&#x5B83;&#x7684;p&#x4E2D;&#x7A83;&#x53D6;</p>
+</li>
+</ul>
+<pre><code>&#x4E0B;&#x9762;&#x662F;p&#x8FD9;&#x4E2A;&#x8C03;&#x5EA6;&#x5668;&#x7684;&#x7ED3;&#x6784;&#x4F53;&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x51FA;&#xFF0C;&#x5B83;&#x62E5;&#x6709;&#x4E86;&#x4E24;&#x4E2A;g&#x53C2;&#x6570;&#xFF0C;&#x4E00;&#x4E2A;&#x662F;&#x961F;&#x5217;&#xFF0C;&#x4E00;&#x4E2A;&#x662F;g&#x53D8;&#x91CF;&#xFF0C;&#x5176;&#x4E2D;&#x8FD8;&#x5305;&#x62EC;&#x4E86;&#x4E00;&#x4E2A;m&#xFF0C;&#x6240;&#x4EE5;&#x5B83;&#x7684;&#x8C03;&#x5EA6;&#x65B9;&#x5F0F;&#x5C31;&#x662F;&#x5C06;&#x961F;&#x5217;&#x4E2D;&#x7684;&#x961F;&#x5934;&#x62C9;&#x5230;m&#x4E2D;&#x53BB;&#x6267;&#x884C;&#xFF0C;&#x6BCF;&#x4E00;&#x4E2A;m&#x5BF9;&#x5E94;&#x4E00;&#x4E2A;p&#xFF0C;&#x6BCF;&#x4E00;&#x4E2A;m&#x5BF9;&#x5E94;&#x4E86;cpu&#x4E2D;&#x7684;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#xFF08;&#x6BD4;&#x5982;4&#x6838;8&#x7EBF;&#x7A0B;&#xFF09;&#xFF0C;&#x8FD9;&#x4E2A;&#x7EBF;&#x7A0B;&#x53EF;&#x4EE5;&#x6210;&#x4E3A;&#x4E00;&#x4E2A;&#x5185;&#x6838;&#x4E86;&#xFF0C;&#x6700;&#x8D77;&#x7801;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x662F;&#x8FD9;&#x4E48;&#x8BA4;&#x4E3A;&#x7684;&#x3002;
+```c
+struct P {
+Lock;
+
+uint32    status;
+P*    link;
+uint32    tick;
+M*    m;
+MCache*    mcache;
+
+G**    runq;
+int32    runqhead;
+int32    runqtail;
+int32    runqsize;
+
+G*    gfree;
+int32    gfreecnt;
+};
+
+```
+&#x6B64;&#x7248;&#x672C;&#x7684;&#x7684;**p&#x6CA1;&#x6709;&#x53EF;&#x4EE5;&#x505C;&#x6B62;g&#x6267;&#x884C;&#x7684;&#x6743;&#x5229;**&#xFF0C;&#x610F;&#x601D;&#x662F;&#xFF0C;&#x53EA;&#x6709;&#x8BA9;g&#x4E3B;&#x52A8;&#x8BA9;&#x51FA;cpu&#x7684;&#x6267;&#x884C;&#x624D;&#x53EF;&#x4EE5;&#xFF0C;p&#x6CA1;&#x6709;&#x90A3;&#x4E2A;&#x80FD;&#x529B;&#x53BB;&#x5E72;&#x9884;&#x3002;
+</code></pre><ul>
+<li><p>&#x62A2;&#x5360;&#x5F0F;&#x8C03;&#x5EA6;</p>
+<p>  &#x5728;&#x8FD9;&#x4E2A;&#x7248;&#x672C;&#x4E2D;&#xFF0C;p&#x62E5;&#x6709;&#x4E86;&#x62A2;&#x5360;&#x80FD;&#x529B;&#xFF0C;<strong>&#x53EF;&#x4EE5;&#x4E3B;&#x52A8;&#x53BB;&#x5E72;&#x9884;g&#x7684;&#x6267;&#x884C;&#x95EE;&#x9898;</strong>&#x3002;go&#x4F1A;&#x5728;<strong>stop the world</strong>&#x7684;&#x65F6;&#x5019;&#x53D1;&#x73B0;&#x8FD0;&#x884C;&#x65F6;&#x95F4;&#x8D85;&#x8FC7;<code>10ms</code>&#x7684;g&#xFF0C;&#x8BA9;&#x5B83;&#x8BA9;&#x51FA;cpu&#x6267;&#x884C;&#x3002;</p>
+<p>  &#x76EE;&#x524D;&#x7684;&#x62A2;&#x5360;&#x53EA;&#x53D1;&#x751F;&#x5728;<strong>&#x5783;&#x573E;&#x56DE;&#x6536;&#x9636;&#x6BB5;</strong>&#x3002;</p>
+</li>
+<li><p>&#x975E;&#x5747;&#x5300;&#x5185;&#x5B58;&#x8BBF;&#x95EE;&#x8C03;&#x5EA6;&#x5668;</p>
+<p>  &#x76EE;&#x524D;&#x662F;&#x4E3A;&#x4E86;&#x589E;&#x52A0;&#x6570;&#x636E;&#x7684;&#x5C40;&#x90E8;&#x6027;&#x51CF;&#x5C11;&#x6570;&#x636E;&#x7684;&#x5168;&#x5C40;&#x6027;&#xFF0C;&#x56E0;&#x4E3A;&#x5168;&#x5C40;&#x5C31;&#x610F;&#x5473;&#x7740;&#x9501;&#x7684;&#x9897;&#x7C92;&#x5EA6;&#x4E0D;&#x591F;&#x5C0F;&#xFF0C;&#x5404;&#x79CD;&#x8D44;&#x6E90;&#x7EDF;&#x4E00;&#x8C03;&#x5EA6;&#x4F1A;&#x6709;&#x8D44;&#x6E90;&#x5229;&#x7528;&#x7387;&#x4F4E;&#x7B49;&#x95EE;&#x9898;&#x3002;</p>
+<h2 id="gmp-&#x6A21;&#x578B;">G:M:P &#x6A21;&#x578B;</h2>
+<h3 id="gmp&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;">G:M:P&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;</h3>
+<p>|G|M|P|
+|:---:|:---:|:---:|
+|&#x5BF9;&#x5E94;&#x4E86;go&#x5185;&#x90E8;&#x7684;&#x6700;&#x57FA;&#x672C;&#x7684;&#x53EF;&#x6267;&#x884C;&#x5355;&#x5143;|&#x76F4;&#x63A5;&#x5BF9;&#x5E94;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x7684;&#x7EBF;&#x7A0B;|&#x5BF9;&#x5E94;&#x4E86;&#x672C;&#x5730;&#x8C03;&#x5EA6;&#x5668;| </p>
+</li>
+</ul>
+<p>G:</p>
+<pre><code class="lang-go"><span class="hljs-keyword">type</span> g <span class="hljs-keyword">struct</span> {
+    <span class="hljs-comment">// &#x8868;&#x793A;&#x8FD9;&#x4E2A;g&#x7684;&#x6808;&#x5185;&#x5B58;&#x7684;&#x8303;&#x56F4;</span>
+    stack       stack
+    <span class="hljs-comment">// &#x8FD9;&#x4E2A;&#x5B57;&#x6BB5;&#x7528;&#x4E8E;&#x8C03;&#x5EA6;&#x5668;&#x7684;&#x62A2;&#x5360;&#x5F0F;&#x8C03;&#x5EA6;</span>
+    stackguard0 <span class="hljs-keyword">uintptr</span>
+    <span class="hljs-comment">// &#x6BCF;&#x4E00;&#x4E2A;g&#x4E2D;&#x90FD;&#x4F1A;&#x4FDD;&#x5B58;panic&#x548C;defer&#x7684;&#x8C03;&#x7528;&#x94FE;&#x8868;</span>
+    _panic       *_panic 
+    _defer       *_defer 
+    <span class="hljs-comment">// &#x5BF9;&#x5E94;&#x4E86;&#x8C03;&#x7528;&#x5B83;&#x7684;m</span>
+    m              *m
+    <span class="hljs-comment">// &#x8DDF;&#x8C03;&#x5EA6;&#x5668;&#x6709;&#x5173;</span>
+    sched          gobuf
+    <span class="hljs-comment">// g&#x7684;&#x72B6;&#x6001;</span>
+    atomicstatus   <span class="hljs-keyword">uint32</span>
+    <span class="hljs-comment">// goroutine id&#xFF0C;&#x5BF9;&#x4E8E;&#x5F00;&#x53D1;&#x8005;&#x4E0D;&#x53EF;&#x89C1;</span>
+    goid           <span class="hljs-keyword">int64</span>
+}
+<span class="hljs-comment">// &#x8FD9;&#x51E0;&#x4E2A;&#x5B57;&#x6BB5;&#xFF0C;&#x51B3;&#x5B9A;&#x4E86;g&#x5728;&#x7CFB;&#x7EDF;&#x7684;&#x8C03;&#x5EA6;&#x4E2D;&#x4F7F;&#x7528;&#xFF0C;&#x5176;&#x4E2D;&#x6808;&#x6307;&#x9488;&#x548C;&#x8BA1;&#x6570;&#x5668;&#x51C6;&#x786E;&#x7684;&#x8BB0;&#x5F55;&#x4E86;&#x7A0B;&#x5E8F;&#x6267;&#x884C;&#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x65B9;&#x4FBF;&#x4E0B;&#x6B21;&#x5728;cpu&#x4E2D;&#x6267;&#x884C;&#x7EE7;&#x7EED;&#x67D0;&#x4E2A;&#x4F4D;&#x7F6E;</span>
+<span class="hljs-keyword">type</span> gobuf <span class="hljs-keyword">struct</span> {
+    <span class="hljs-comment">// &#x6808;&#x6307;&#x9488;</span>
+    sp   <span class="hljs-keyword">uintptr</span>
+    <span class="hljs-comment">// &#x7A0B;&#x5E8F;&#x8BA1;&#x6570;&#x5668;</span>
+    pc   <span class="hljs-keyword">uintptr</span>
+    <span class="hljs-comment">// &#x8C03;&#x7528;&#x4E86;runtime.gobuf&#x7684;g</span>
+    g    guintptr
+    <span class="hljs-comment">// &#x7CFB;&#x7EDF;&#x7684;&#x8FD4;&#x56DE;&#x503C;</span>
+    ret  sys.Uintreg
+}
+</code></pre>
+<p>g&#x7684;&#x6267;&#x884C;&#x72B6;&#x6001;&#x53EF;&#x4EE5;&#x5927;&#x6982;&#x5206;&#x4E3A;&#x4E09;&#x79CD;&#xFF0C;&#x7B49;&#x5F85;&#x4E2D;&#xFF0C;&#x53EF;&#x6267;&#x884C;&#x672A;&#x6267;&#x884C;&#xFF0C;&#x6B63;&#x5728;&#x6267;&#x884C;</p>
+<p>M:</p>
+<p>m&#x53EF;&#x4EE5;&#x521B;&#x5EFA;10000&#x4E2A;&#xFF0C;&#x4F46;&#x662F;&#x53EA;&#x6709;GOMAXPROCS&#x4E2A;&#x624D;&#x80FD;&#x88AB;&#x6FC0;&#x53D1;&#x6D3B;&#x8DC3;&#x8FD0;&#x884C;&#xFF0C;&#x5176;&#x4F59;&#x7684;&#x90FD;&#x4F1A;&#x88AB;&#x56DE;&#x6536;&#x3002;&#x7CFB;&#x7EDF;&#x9ED8;&#x8BA4;&#x7684;GOMAXPROCS&#x7B49;&#x4E8E;&#x5185;&#x6838;&#x6570;&#xFF0C;&#x6BD4;&#x5982;&#x56DB;&#x6838;&#x516B;&#x7EBF;&#x7A0B;&#x7684;cpu&#x5C31;&#x4F1A;&#x521B;&#x5EFA;8&#x4E2A;&#x3002;</p>
+<pre><code class="lang-go"><span class="hljs-keyword">type</span> m <span class="hljs-keyword">struct</span> {
+    <span class="hljs-comment">// g0&#x6301;&#x6709;&#x8C03;&#x5EA6;&#x6808;</span>
+    g0   *g
+    <span class="hljs-comment">//&#x6B63;&#x5728;m&#x4E2D;&#x6267;&#x884C;&#x7684;g</span>
+    curg *g
+}
+</code></pre>
+<p>P:</p>
+<p>p&#x4E0A;&#x62E5;&#x6709;&#x4E00;&#x4E2A;&#x672C;&#x5730;&#x961F;&#x5217;&#x7684;g&#xFF0C;g&#x4F1A;&#x4F18;&#x5148;&#x653E;&#x7F6E;&#x5230;&#x672C;&#x5730;&#x7684;&#x961F;&#x5217;&#x4E2D;&#xFF0C;&#x7136;&#x540E;&#x5168;&#x5C40;&#x8FD8;&#x62E5;&#x6709;&#x4E00;&#x4E2A;g&#x7684;&#x961F;&#x5217;&#xFF0C;&#x8FD9;&#x4E2A;&#x5B58;&#x5728;&#x5168;&#x5C40;&#x7684;g&#x5C31;&#x662F;&#x5F53;&#x961F;&#x5217;&#x4E2D;&#x8D85;&#x8FC7;256&#x4E2A;&#x7684;&#x65F6;&#x5019;&#x5C31;&#x4F1A;&#x628A;&#x672C;&#x5730;&#x7684;&#x4E00;&#x534A;g&#x79FB;&#x5230;&#x5168;&#x5C40;q&#x4E2D;&#xFF0C;&#x5F53;&#x672C;&#x5730;&#x6CA1;&#x6709;g&#x7684;&#x65F6;&#x5019;&#x5C31;&#x4ECE;&#x5168;&#x5C40;&#x7684;g&#x4E2D;&#x6293;&#x53D6;&#x6570;&#x636E;&#xFF0C;&#x6216;&#x8005;m&#x4E5F;&#x4F1A;&#x4ECE;&#x5176;&#x5B83;m&#x65D7;&#x4E0B;p&#x7684;&#x961F;&#x5217;&#x4E2D;&#x6293;&#x53D6;&#x4E00;&#x534A;&#x7684;g&#x653E;&#x7F6E;&#x5230;&#x81EA;&#x5DF1;&#x65D7;&#x4E0B;p&#x7684;&#x961F;&#x5217;&#x91CC;&#x3002;</p>
+<pre><code class="lang-go"><span class="hljs-keyword">type</span> p <span class="hljs-keyword">struct</span> {
+    <span class="hljs-comment">// &#x8868;&#x793A;&#x53CD;&#x5411;&#x6301;&#x6709;&#x7684;&#x7CFB;&#x7EDF;&#x7EBF;&#x7A0B;</span>
+    m           muintptr
+    <span class="hljs-comment">// &#x8868;&#x793A;p&#x4E0A;&#x9762;&#x6302;&#x8F7D;&#x7684;&#x961F;&#x5217;&#x5934;&#x90E8;</span>
+    runqhead <span class="hljs-keyword">uint32</span>
+    <span class="hljs-comment">// &#x5C3E;&#x90E8;</span>
+    runqtail <span class="hljs-keyword">uint32</span>
+    <span class="hljs-comment">// &#x961F;&#x5217;&#xFF0C;&#x6CE8;&#x610F;&#x770B;&#x961F;&#x5217;&#x662F;&#x7528;&#x4E00;&#x4E2A;256&#x7684;&#x6570;&#x7EC4;&#x8868;&#x793A;&#x7684;&#xFF0C;&#x8BF4;&#x660E;&#x521B;&#x5EFA;&#x7684;g&#x6570;&#x91CF;&#x662F;&#x4F18;&#x5148;&#x7684;&#xFF0C;&#x4E0D;&#x80FD;&#x8D85;&#x8FC7;256 * p&#x7684;&#x4E2A;&#x6570;&#xFF0C;&#x5982;&#x679C;&#x662F;4&#x6838;8&#x7EBF;&#x7A0B;&#x5C31;&#x662F;&#x4E0D;&#x80FD;&#x8D85;&#x8FC7; 256 * 8 = 2048&#x4E2A;</span>
+    runq     [<span class="hljs-number">256</span>]guintptr
+    runnext guintptr
+    ...
+}
+</code></pre>
 <h2 id="runtimegosched&#x57FA;&#x4E8E;&#x963B;&#x585E;&#x7684;&#x534F;&#x7A0B;&#x8C03;&#x5EA6;">runtime.gosched()&#x57FA;&#x4E8E;&#x963B;&#x585E;&#x7684;&#x534F;&#x7A0B;&#x8C03;&#x5EA6;</h2>
+<p>Gosched &#x5141;&#x8BB8;&#x5176;&#x4ED6;goroutine&#x8FD0;&#x884C;,&#x5B83;&#x4E0D;&#x4F1A;&#x6302;&#x8D77;&#x5F53;&#x524D;&#x7684;goroutine,&#x56E0;&#x6B64;&#x4F1A;&#x81EA;&#x52A8;&#x6062;&#x590D;&#x6267;&#x884C;&#x3002;</p>
+<p>&#x610F;&#x601D;&#x5C31;&#x662F;&#x8FD9;&#x4E2A;&#x51FD;&#x6570;&#xFF0C;&#x8BA9;&#x8FD9;&#x4E2A;g&#x8BA9;&#x51FA;&#x4E86;cpu&#x6267;&#x884C;&#x6743;&#x5229;&#xFF0C;&#x8BA9;&#x4F4D;&#x7ED9;&#x5176;&#x5B83;&#x7684;g&#xFF0C;&#x7136;&#x540E;&#x67D0;&#x4E2A;&#x65F6;&#x95F4;&#x70B9;&#x518D;&#x56DE;&#x6765;&#x6267;&#x884C;&#x8FD9;&#x4E2A;g&#x3002;</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main(){
+    <span class="hljs-keyword">for</span> i:= <span class="hljs-number">0</span>;i &lt; <span class="hljs-number">10</span>;i++ {
+        <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>(i <span class="hljs-keyword">int</span>){
+                fmt.Println(i)
+        }(i)
+    }
+    fmt.Println(<span class="hljs-string">&quot;over&quot;</span>)
+}
+</code></pre>
+<p>&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;&#x5C31;&#x4F1A;&#x8F93;&#x51FA;over&#xFF0C;&#x4E0A;&#x9762;&#x90A3;&#x662F;&#x4E2A;g&#x7684;i&#x5C31;&#x53EF;&#x80FD;&#x4E0D;&#x4F1A;&#x6267;&#x884C;&#x3002;</p>
+<p>&#x6211;&#x4EEC;&#x4F7F;&#x7528;runtime.Gosched()&#xFF0C;&#x90A3;&#x4E48;&#x4E0A;&#x9762;&#x7684;g&#x4E00;&#x5B9A;&#x4F1A;&#x6267;&#x884C;&#x3002;&#xFF08;&#x4E0D;&#x4E00;&#x5B9A;&#x5168;&#x90E8;&#x6267;&#x884C;&#xFF0C;&#x4F46;&#x662F;&#x4E00;&#x5B9A;&#x6709;&#x4E00;&#x90E8;&#x5206;&#x6267;&#x884C;&#xFF09;</p>
+<pre><code class="lang-go"><span class="hljs-keyword">func</span> main(){
+    <span class="hljs-keyword">for</span> i:= <span class="hljs-number">0</span>;i &lt; <span class="hljs-number">10</span>;i++ {
+        <span class="hljs-keyword">go</span> <span class="hljs-keyword">func</span>(i <span class="hljs-keyword">int</span>){
+                fmt.Println(i)
+        }(i)
+    }
+    <span class="hljs-comment">// &#x8FD9;&#x91CC;&#x5C31;&#x53EF;&#x4EE5;&#x6682;&#x65F6;&#x8BA9;&#x4E3B;g&#x8BA9;&#x51FA;cpu&#x6267;&#x884C;&#x7247;&#x6BB5;</span>
+    runtime.Gosched()
+    fmt.Println(<span class="hljs-string">&quot;over&quot;</span>)
+}
+</code></pre>
+<p>&#x5E95;&#x5C42;&#x7684;&#x903B;&#x8F91;&#x5C31;&#x662F;&#xFF0C;&#x5C06;&#x8FD9;&#x4E2A;g&#x4ECE;m&#x4E2D;&#x53D6;&#x6D88;&#x8FD0;&#x884C;&#x673A;&#x4F1A;&#xFF0C;&#x5C06;&#x6B64;g&#x91CD;&#x65B0;&#x653E;&#x5230;&#x672C;&#x5730;q&#x7684;&#x961F;&#x5C3E;</p>
 
                                 
                                 </section>
@@ -849,7 +1002,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"运行时调度器G:M:P","level":"1.3.5","depth":2,"next":{"title":"网络轮询器netpool","level":"1.3.6","depth":2,"path":"2/netpool.md","ref":"./2/netpool.md","articles":[]},"previous":{"title":"定时器","level":"1.3.4","depth":2,"path":"2/timer.md","ref":"./2/timer.md","articles":[]},"dir":"ltr"},"config":{"plugins":["livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"ignoreSpecialCharacters":false,"maxIndexSize":1000000},"sharing":{"weibo":false,"all":["facebook","google","twitter","weibo","instapaper"],"google":false,"twitter":true,"vk":false,"instapaper":false,"facebook":true},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"科科人神 <shgopher@foxmail.com>","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":2,"left":2,"top":36,"bottom":36},"fontSize":16,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"GOFamily","gitbook":"*","sidebar":{"GOFamily":"https://github.com/shgopher/GOFamily"},"description":"GOFamily is a go-learning book."},"file":{"path":"2/gmp.md","mtime":"2021-06-24T05:44:57.559Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-06-25T06:27:35.518Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"运行时调度器G:M:P","level":"1.3.5","depth":2,"next":{"title":"网络轮询器netpool","level":"1.3.6","depth":2,"path":"2/netpool.md","ref":"./2/netpool.md","articles":[]},"previous":{"title":"定时器","level":"1.3.4","depth":2,"path":"2/timer.md","ref":"./2/timer.md","articles":[]},"dir":"ltr"},"config":{"plugins":["livereload"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"livereload":{},"highlight":{},"search":{},"lunr":{"ignoreSpecialCharacters":false,"maxIndexSize":1000000},"sharing":{"weibo":false,"all":["facebook","google","twitter","weibo","instapaper"],"google":false,"twitter":true,"vk":false,"instapaper":false,"facebook":true},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","author":"科科人神 <shgopher@foxmail.com>","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":2,"left":2,"top":36,"bottom":36},"fontSize":16,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"GOFamily","gitbook":"*","sidebar":{"GOFamily":"https://github.com/shgopher/GOFamily"},"description":"GOFamily is a go-learning book."},"file":{"path":"2/gmp.md","mtime":"2021-07-06T12:03:15.528Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2021-07-22T14:36:37.831Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>
